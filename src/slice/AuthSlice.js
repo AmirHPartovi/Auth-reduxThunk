@@ -11,7 +11,11 @@ export const AuthAsyncThunk = createAsyncThunk(
 )
 
 const initialState ={
-
+    isLogin:false,
+    loading:false,
+    name:'',
+    age:0,
+    country:''
 }
 
 export const AuthSlice = createSlice({
@@ -19,14 +23,20 @@ export const AuthSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
-        builder.addCase(AuthAsyncThunk.pending,()=>{
-            
+        builder.addCase(AuthAsyncThunk.pending,(state)=>{
+            state.loading = true;
         })
-        builder.addCase(AuthAsyncThunk.fulfilled,()=>{
+        builder.addCase(AuthAsyncThunk.fulfilled,(state,action)=>{
+            const payload = action
+            state.isLogin = true
+            state.name=payload.name
+            state.age=payload.age
+            state.country=payload.country
 
         })
-        builder.addCase(AuthAsyncThunk.rejected,()=>{
-
+        builder.addCase(AuthAsyncThunk.rejected,(state)=>{
+            state.loading = false
+            state.error = 'invalid Username or Password'
         })
     }
 })
