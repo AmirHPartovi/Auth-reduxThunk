@@ -3,7 +3,8 @@ import {Button, Grid, TextField, Typography , CircularProgress} from '@mui/mater
 import { useState } from 'react';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 import { useDispatch, useSelector } from 'react-redux';
-import { AuthAsyncThunk } from './slice/AuthSlice';
+import AuthSlice, { AuthAsyncThunk } from './slice/AuthSlice';
+import { logout } from './slice/AuthSlice';
 
 
 function App() {
@@ -22,10 +23,14 @@ function App() {
     dispatch(AuthAsyncThunk(form))
     
   }
+  const handleLogOut = () =>{
+    dispatch(logout())
+  }
 
   if(auth.isLogin){
-    return(<div style={{textAlign:'center' , verticalAlign:'center'}}>
+    return(<div style={{display:'flex',flexDirection:'column' ,justifyContent:'center',alignItems:'center'}}>
       <h1>Welcome</h1>
+      <Button variant='contained' sx={{borderRadius:2 , width:250}} onclick={handleLogOut}>LOG OUT</Button>
     </div>)
   }
   return (
