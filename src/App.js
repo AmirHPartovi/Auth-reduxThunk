@@ -1,9 +1,10 @@
 import './App.css';
-import {Button, Grid, TextField, Typography} from '@mui/material'
+import {Button, Grid, TextField, Typography , CircularProgress} from '@mui/material'
 import { useState } from 'react';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthAsyncThunk } from './slice/AuthSlice';
+
 
 function App() {
   const [form,setForm] = useState({
@@ -21,8 +22,11 @@ function App() {
     dispatch(AuthAsyncThunk(form))
     
   }
+
   if(auth.isLogin){
-    return <div>Welcome</div>
+    return(<div style={{textAlign:'center' , verticalAlign:'center'}}>
+      <h1>Welcome</h1>
+    </div>)
   }
   return (
     <Grid container justifyContent={'center'} mt={4}>
@@ -35,8 +39,8 @@ function App() {
             <form onSubmit={handleSubmit} style={{display:'flex' , flexDirection:'column', alignItems:'center' ,}}>
               <TextField onChange={handleChange} type={'text'} value={form.userName} name='userName' label={'User Name'} sx={{my:2 , width:250}}/>
               <TextField onChange={handleChange} type={'password'} value={form.passWord} name='passWord' label={'Password'} sx={{my:2, width:250}}/>
-              <Button type={'submit'} variant='contained' sx={{borderRadius:2 , width:250}}>
-                LOG IN
+              <Button disabled={auth.loading} type={'submit'} variant='contained' sx={{borderRadius:2 , width:250}}>
+                {auth.loading?<CircularProgress /> :'LOG IN'}
               </Button>
             </form>
         </Grid>
