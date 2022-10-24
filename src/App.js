@@ -19,7 +19,7 @@ function App() {
   const handleSubmit = e =>{
     e.preventDefault()
     dispatch(AuthAsyncThunk(form))
-    alert('Checked')
+    
   }
   if(auth.isLogin){
     return <div>Welcome</div>
