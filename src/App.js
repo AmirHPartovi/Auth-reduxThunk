@@ -8,6 +8,15 @@ function App() {
   const [form,setForm] = useState({
     userName:'',passWord:''
   })
+
+  const handleChange = e =>{
+      setForm({...form,[e.target.name]:e.target.value})
+  }
+
+  const handleSubmit = e =>{
+    e.preventDefault()
+    alert('Checked')
+  }
   return (
     <Grid container justifyContent={'center'} mt={4}>
       <Grid container item xs={4} height={400} alignItems={'center'} justifyContent={'center'}>
@@ -16,10 +25,10 @@ function App() {
             <Typography variant='h4'>Log In</Typography>
         </Grid>
         <Grid container justifyContent={'center'} item xs={12}>
-            <form  style={{display:'flex' , flexDirection:'column', alignItems:'center' ,}}>
-              <TextField  value={form.userName} name='userName' label={'User Name'} sx={{my:2 , width:250}}/>
-              <TextField  value={form.passWord} name='passWord' label={'Password'} sx={{my:2, width:250}}/>
-              <Button variant='contained' sx={{borderRadius:2 , width:250}}>
+            <form onSubmit={handleSubmit} style={{display:'flex' , flexDirection:'column', alignItems:'center' ,}}>
+              <TextField onChange={handleChange} type={'text'} value={form.userName} name='userName' label={'User Name'} sx={{my:2 , width:250}}/>
+              <TextField onChange={handleChange} type={'password'} value={form.passWord} name='passWord' label={'Password'} sx={{my:2, width:250}}/>
+              <Button type={'submit'} variant='contained' sx={{borderRadius:2 , width:250}}>
                 LOG IN
               </Button>
             </form>
