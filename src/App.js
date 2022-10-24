@@ -2,11 +2,15 @@ import './App.css';
 import {Button, Grid, TextField, Typography} from '@mui/material'
 import { useState } from 'react';
 import LockPersonIcon from '@mui/icons-material/LockPerson';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthAsyncThunk } from './slice/AuthSlice';
 
 function App() {
   const [form,setForm] = useState({
     userName:'',passWord:''
   })
+  const dispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
 
   const handleChange = e =>{
       setForm({...form,[e.target.name]:e.target.value})
@@ -14,7 +18,11 @@ function App() {
 
   const handleSubmit = e =>{
     e.preventDefault()
+    dispatch(AuthAsyncThunk(form))
     alert('Checked')
+  }
+  if(auth.isLogin){
+    return <div>Welcome</div>
   }
   return (
     <Grid container justifyContent={'center'} mt={4}>
